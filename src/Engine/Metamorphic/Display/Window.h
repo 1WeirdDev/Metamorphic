@@ -3,7 +3,7 @@
 #include "../Core.h"
 #include "../Events/Event.h"
 
-#ifdef METAMORPHIC_ENGINE_BUILD
+#ifdef METAMORPHIC_ENGINE_BUILD || METAMORPHIC_EDITOR_BUILD
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #define WINDOW_TYPE GLFWwindow*

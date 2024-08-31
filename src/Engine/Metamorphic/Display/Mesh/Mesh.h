@@ -6,5 +6,6 @@ namespace Metamorphic{
         virtual void CleanUp(){}
 
         virtual void Draw(){}
+        
     };
 }
