@@ -158,3 +158,5 @@ ifneq ($(CONFIGURATION), Dist)
 else
 	$(FILE_NAME)
 endif
+push:
+	push.bat

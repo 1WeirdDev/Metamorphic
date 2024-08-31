@@ -6,28 +6,35 @@
 #define METAMORPHIC_NO_ENTRY_POINT
 #include "Metamorphic.h"
 
+using namespace Metamorphic;
 int main(int argc, char** argv){
+    Metamorphic::Logger::Init();
+
     if(!glfwInit()){
-        printf("Failed to initialize glfw\n");
+        MORPHIC_CORE_ERROR("Failed to initialize glfw\n");
         return -1;
     }
+    GLFWwindow* glfw_window = glfwCreateWindow(1280, 720, "Metamorphic Editor", nullptr, nullptr);
 
-    Metamorphic::Logger::Init();
-    GLFWwindow* window = glfwCreateWindow(1280, 720, "Metamorphic Editor", nullptr, nullptr);
-
-    if(!window){
-        printf("Failed to create window\n");
+    if(!glfw_window){
+        MORPHIC_CORE_ERROR("Failed to create window\n");
         glfwTerminate();
         return -1;
     }
 
-    glfwMakeContextCurrent(window);
+    glfwMakeContextCurrent(glfw_window);
+    MORPHIC_CORE_LOG("Initializing Editor");
 
-    MORPHIC_CORE_LOG("HELLO");
-    while(glfwWindowShouldClose(window) == false){
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+    Window m;
+    m.Init();
+    Application* app = new Application();
+
+    while(glfwWindowShouldClose(glfw_window) == false){
+        
     }
+
+    delete app;
     MORPHIC_INFO("Shutting down editor");
+    glfwDestroyWindow(glfw_window);
     glfwTerminate();
 }

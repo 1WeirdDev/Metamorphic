@@ -16,13 +16,11 @@ namespace Metamorphic{
             MORPHIC_CORE_ERROR("Failed to initialize glfw.");
             return;
         }
-
-        int width = 1280;
-        int height = 720;
-        m_Window = glfwCreateWindow(width, height, "Metamorphic Engine", nullptr, nullptr);
+        
+        m_Window = glfwCreateWindow(m_Data.m_Width, m_Data.m_Height, "Metamorphic Engine", nullptr, nullptr);
 
         GLFWvidmode* videoMode = (GLFWvidmode*)glfwGetVideoMode(glfwGetPrimaryMonitor());
-        glfwSetWindowPos(m_Window, (videoMode->width - width) / 2, (videoMode->height - height) / 2);
+        glfwSetWindowPos(m_Window, (videoMode->width - m_Data.m_Width) / 2, (videoMode->height - m_Data.m_Height) / 2);
         if(m_Window == nullptr){
             MORPHIC_CORE_ERROR("Failed to create window");
             std::exit(-1);
