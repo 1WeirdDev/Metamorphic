@@ -3,10 +3,16 @@
 #include "../Core.h"
 #include "../Events/Event.h"
 
-#ifdef METAMORPHIC_ENGINE_BUILD || METAMORPHIC_EDITOR_BUILD
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#define WINDOW_TYPE GLFWwindow*
+#if METAMORPHIC_ENGINE_BUILD || METAMORPHIC_EDITOR_BUILD
+    #if METAMORPHIC_USE_OPENGL
+        #include <GL/glew.h>
+        #include <GLFW/glfw3.h>
+        #define WINDOW_TYPE GLFWwindow*
+    #elif METAMORPHIC_USE_DIRECTX
+        #define WINDOW_TYPE void*
+    #else
+        #error Invalid Rendering API Specified
+    #endif
 #else
 #define WINDOW_TYPE void*
 #endif
@@ -33,7 +39,7 @@ namespace Metamorphic{
         bool ShouldUpdate() const {return m_IsOpen;}
     private:
         WINDOW_TYPE m_Window = nullptr;
-        bool m_IsOpen;
         WindowData m_Data;
+        bool m_IsOpen;
     };
 }

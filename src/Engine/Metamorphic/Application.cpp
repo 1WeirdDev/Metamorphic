@@ -34,18 +34,32 @@ namespace Metamorphic{
         });
 
         //Init Input System
-        input.Init();
+        m_Input.Init();
+
+        //Init scenes
+        m_SceneManager.Init();
     }
     Application::~Application(){
-        input.Shutdown();
-        m_Window.Shutdown();
     }
     
-    void Application::Awake(){}
+    void Application::Awake(){
+        OnAwake();
+    }
     void Application::Update(){
         m_Window.Update();
-        input.Update();
+        m_Input.Update();
+        
+        m_SceneManager.Update();
+        OnUpdate();
     }
-    void Application::LateUpdate(){}
-    void Application::Draw(){}
+    void Application::Draw(){
+        m_SceneManager.Draw();
+        OnDraw();
+    }
+
+    void Application::CleanUp(){
+        m_SceneManager.Shutdown();
+        m_Input.Shutdown();
+        m_Window.Shutdown();
+    }
 }

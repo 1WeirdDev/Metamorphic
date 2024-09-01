@@ -7,7 +7,7 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 
 namespace Metamorphic{
-    class Logger{
+    class MORPHIC_API Logger{
     public:
         static void Init();
         inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
@@ -25,6 +25,7 @@ namespace Metamorphic{
 #define MORPHIC_CORE_INFO(...)
 #define MORPHIC_CORE_TRACE(...)
 #define MORPHIC_CORE_LOG(...)
+#define MORPHIC_CORE_DEBUG(...)
 
 #define MORPHIC_ERROR(...)
 #define MORPHIC_WARN(...)	
@@ -32,6 +33,7 @@ namespace Metamorphic{
 #define MORPHIC_TRACE(...)
 #define MORPHIC_FATAL(...)
 #define MORPHIC_LOG(...)
+#define MORPHIC_DEBUG(...)
 #else
 
 #define MORPHIC_CORE_ERROR(...)	::Metamorphic::Logger::GetCoreLogger()->error(__VA_ARGS__)
@@ -39,10 +41,12 @@ namespace Metamorphic{
 #define MORPHIC_CORE_INFO(...)	::Metamorphic::Logger::GetCoreLogger()->info(__VA_ARGS__)
 #define MORPHIC_CORE_TRACE(...)	::Metamorphic::Logger::GetCoreLogger()->trace(__VA_ARGS__)
 #define MORPHIC_CORE_LOG(...)	::Metamorphic::Logger::GetCoreLogger()->info(__VA_ARGS__)
+#define MORPHIC_CORE_DEBUG(...)	::Metamorphic::Logger::GetCoreLogger()->debug(__VA_ARGS__)
 
 #define MORPHIC_ERROR(...)	::Metamorphic::Logger::GetClientLogger()->error(__VA_ARGS__)
 #define MORPHIC_WARN(...)		::Metamorphic::Logger::GetClientLogger()->warn(__VA_ARGS__)
 #define MORPHIC_INFO(...)		::Metamorphic::Logger::GetClientLogger()->info(__VA_ARGS__)
 #define MORPHIC_TRACE(...)	::Metamorphic::Logger::GetClientLogger()->trace(__VA_ARGS__)
 #define MORPHIC_LOG(...) ::Metamorphic::Logger::GetClientLogger()->info(__VA_ARGS__)
+#define MORPHIC_DEBUG(...) ::Metamorphic::Logger::GetClientLogger()->debug(__VA_ARGS__)
 #endif
