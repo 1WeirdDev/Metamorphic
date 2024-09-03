@@ -10,7 +10,7 @@ namespace Metamorphic{
 
         void Init() override;
         void Shutdown() override;
-
+        
         void ClearScreen() override;
     };
 }

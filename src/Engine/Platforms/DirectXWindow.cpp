@@ -70,14 +70,14 @@ namespace Metamorphic{
 
         ZeroMemory(&m_Msg, sizeof(MSG));
         m_IsOpen = true;
-        MORPHIC_CORE_DEBUG("Created DirectX Window");
+        MORPHIC_CORE_DEBUG("Created DirectXWindow");
     }
     void DirectXWindow::Shutdown(){
         if(m_Window)
             DestroyWindow(m_Window);
         UnregisterClass(WindowClass, m_HInstance);
         m_Window = nullptr;
-        MORPHIC_CORE_INFO("Shutdown DirectX Window\n");   
+        MORPHIC_CORE_INFO("Shutdown DirectXWindow\n");   
     }
 
     void DirectXWindow::Update(){

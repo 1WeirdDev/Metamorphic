@@ -1,5 +1,6 @@
 #pragma once
 
+#include "mmafx.h"
 #include "Metamorphic/Core.h"
 
 namespace Metamorphic{

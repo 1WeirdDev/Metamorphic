@@ -1,7 +1,6 @@
 #pragma once
 
 #include "RenderAPI.h"
-
 namespace Metamorphic{
     class MORPHIC_API VulkanRenderAPI : public RenderAPI{
     public:
@@ -12,5 +11,10 @@ namespace Metamorphic{
         void Shutdown() override;
 
         void ClearScreen() override;
+    private:
+        //VkApplicationInfo appInfo{};
+        //VkInstanceCreateInfo createInfo{};
+
+        //VkInstance instance;
     };
 }

@@ -7,7 +7,7 @@ Platform=Windows
 Configuration =Debug
 EngineType = Dynamic
 BuildType = Sandbox
-RenderingAPI = OpenGL
+RenderingAPI = Vulkan
 
 #Names of the output files
 ENGINE_TARGET_NAME = MetamorphicEngine
@@ -54,6 +54,7 @@ PLATFORMS_SRC = $(ENGINE_SRC)Platforms/
 EDITOR_SRC = src/Editor/
 INCLUDE_DIRS = 
 
+VK_PATH = $(VULKAN_SDK)/
 DEFINES =$(DF)WINDOWS_IGNORE_PACKING_MISMATCH 
 LIBS =
 CFLAGS = /std:c++17
@@ -97,25 +98,26 @@ ENGINE_FILES += $(ENGINE_SRC)Platforms/DesktopInput.cpp
 ENGINE_INCLUDES +=  $(IF)libs/spdlog/include
 
 ifeq ($(RenderingAPI), OpenGL)
-DEFINES += $(DF)GLEW_STATIC $(DF)METAMORPHIC_USE_OPENGL $(DF)METAMORPHIC_USE_GLFW
+ENGINE_DEFINES += $(DF)GLEW_STATIC $(DF)METAMORPHIC_USE_OPENGL $(DF)METAMORPHIC_USE_GLFW
 EDITOR_INCLUDES += $(IF)libs/GLFW3.4/x64/include $(IF)libs/glew-2.2.0/include
-EDITOR_LIB_PATHS += /LIBPATH:"libs/GLFW3.4/x64/lib-vc2022" /LIBPATH:"libs/glew-2.2.0/libs/x64"
+EDITOR_LIB_PATHS += $(LPF)"libs/GLFW3.4/x64/lib-vc2022" $(LPF)"libs/glew-2.2.0/libs/x64"
 EDITOR_LIBS += glfw3.lib glew32s.lib opengl32.lib
 
 ENGINE_FILES += $(PLATFORMS_SRC)GLFWWindow.cpp $(PLATFORMS_SRC)OpenGLRenderAPI.cpp
 ENGINE_INCLUDES += $(IF)libs/GLFW3.4/x64/include $(IF)libs/glew-2.2.0/include
-ENGINE_LIB_PATHS += /LIBPATH:"libs/GLFW3.4/x64/lib-vc2022" /LIBPATH:"libs/glew-2.2.0/libs/x64"
+ENGINE_LIB_PATHS += $(LPF)"libs/GLFW3.4/x64/lib-vc2022" $(LPF)"libs/glew-2.2.0/libs/x64"
 ENGINE_LIBS += glfw3.lib glew32s.lib opengl32.lib
 else ifeq ($(RenderingAPI), DirectX)
-DEFINES += $(DF)METAMORPHIC_USE_DIRECTX
+ENGINE_DEFINES += $(DF)METAMORPHIC_USE_DIRECTX
 ENGINE_FILES += $(PLATFORMS_SRC)DirectXWindow.cpp $(PLATFORMS_SRC)DirectXRenderAPI.cpp
 ENGINE_LIBS += D3d12.lib dxgi.lib
 else ifeq ($(RenderingAPI), Vulkan)
-ENGINE_INCLUDES += $(IF)libs/GLFW3.4/x64/include 
-DEFINES += $(DF)METAMORPHIC_USE_VULKAN $(DF)METAMORPHIC_USE_GLFW
+ENGINE_DEFINES += $(DF)GLFW_INCLUDE_VULKAN $(DF)METAMORPHIC_USE_VULKAN $(DF)METAMORPHIC_USE_GLFW
+ENGINE_INCLUDES += $(IF)libs/GLFW3.4/x64/include $(IF)$(VK_PATH)/Include/
 ENGINE_FILES += $(PLATFORMS_SRC)VulkanRenderAPI.cpp $(PLATFORMS_SRC)GLFWWindow.cpp
-ENGINE_LIB_PATHS += /LIBPATH:"libs/GLFW3.4/x64/lib-vc2022" 
-ENGINE_LIBS += glfw3.lib  opengl32.lib
+ENGINE_LIB_PATHS += $(LPF)"libs/GLFW3.4/x64/lib-vc2022" $(LPF)"$(VK_PATH)/Lib"
+ENGINE_LIBS += glfw3.lib vulkan-1.Lib
+# opengl32.lib
 else
 $(error Windows Invalid Rendering API)
 endif
@@ -171,7 +173,7 @@ define f_build_engine_pch
 endef
 
 define f_build_engine
-	$(CC) $(ENGINE_FILES) $(DEFINES) $(CRT) /c /Fo$(ENGINE_INT_DIR) $(IF)$(ENGINE_SRC) $(ENGINE_DEFINES) $(INCLUDE_DIRS) $(ENGINE_INCLUDES)
+	$(CC) $(CFLAGS) $(ENGINE_FILES) $(DEFINES) $(CRT) /c /Yu$(ENGINE_PCH_NAME).h /Fp$(ENGINE_INT_DIR)$(ENGINE_PCH_NAME).pch /Fo$(ENGINE_INT_DIR) $(IF)$(ENGINE_SRC) $(ENGINE_DEFINES) $(INCLUDE_DIRS) $(ENGINE_INCLUDES)
 	
 	$(LIBRARY_CREATOR) $(LFLAGS) $(OUTPUT_FLAG)$(ENGINE_OUTPUT_DIR)$(ENGINE_TARGET_NAME).$(ENGINE_LIBRARY_OUTPUT_EXT) $(ENGINE_INT_DIR)/*.obj $(ENGINE_LIB_PATHS) $(ENGINE_LIBS) $(LIB_DIRS) $(LIBS) $(ENGINE_LFLAGS)
 
@@ -185,11 +187,11 @@ define f_build_editor_pch
 endef
 
 define f_build_editor
-	$(CC) $(EDITOR_FILES) $(CRT) /c /Fo$(EDITOR_INT_DIR) $(IF)src/Engine $(DEFINES) $(EDITOR_DEFINES) $(INCLUDE_DIRS) $(EDITOR_INCLUDES)
+	$(CC) $(CFLAGS) $(EDITOR_FILES) $(CRT) /c /Fo$(EDITOR_INT_DIR) $(IF)src/Engine $(DEFINES) $(EDITOR_DEFINES) $(INCLUDE_DIRS) $(EDITOR_INCLUDES)
 	$(LINKER) $(LFLAGS) $(OUTPUT_FLAG)$(EDITOR_OUTPUT_DIR)$(EDITOR_TARGET_NAME).exe $(EDITOR_INT_DIR)/*.obj $(EDITOR_LIB_PATHS) $(EDITOR_LIBS) $(LIB_DIRS) $(LIBS) $(EDITOR_LFLAGS)  /LIBPATH:$(ENGINE_OUTPUT_DIR) $(ENGINE_TARGET_NAME).lib
 endef
 define f_build_sandbox 
-	$(CC) $(SANDBOX_FILES) $(CRT) /c /Fo$(SANDBOX_INT_DIR) $(IF)src/Engine $(IF)src/SandboxApp $(INCLUDE_DIRS) $(SANDBOX_DEFINES) $(DEFINES)
+	$(CC) $(CFLAGS) $(SANDBOX_FILES) $(CRT) /c /Fo$(SANDBOX_INT_DIR) $(IF)src/Engine $(IF)src/SandboxApp $(INCLUDE_DIRS) $(SANDBOX_DEFINES) $(DEFINES)
 	$(LINKER) $(OUTPUT_FLAG)$(SANDBOX_OUTPUT_DIR)/$(SANDBOX_TARGET_NAME).exe $(SANDBOX_INT_DIR)/*.obj $(LIB_DIRS) $(LIBS) $(LFLAGS) /LIBPATH:$(ENGINE_OUTPUT_DIR) $(ENGINE_TARGET_NAME).lib
 endef
 

@@ -10,7 +10,7 @@ namespace Metamorphic{
     void Time::Init(){
         s_FrameStart = std::chrono::steady_clock::now();
         s_LastFrameStart = std::chrono::steady_clock::now();
-        s_DeltaTime = 0.0f;
+        s_DeltaTime = 0.0001f;
     }
 
     void Time::Update(){

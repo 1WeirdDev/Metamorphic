@@ -74,6 +74,6 @@ namespace Metamorphic{
         
         m_RenderAPI = nullptr;
         m_Window = nullptr;
-        MORPHIC_CORE_DEBUG("Shutdown Application");
+        MORPHIC_CORE_INFO("Shutdown Application");
     }
 }

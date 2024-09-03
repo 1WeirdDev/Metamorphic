@@ -19,7 +19,7 @@ public:
     }
 
     void OnUpdate() override{
-        MORPHIC_DEBUG("FPS : {0}", (1.0f / Time::GetDeltaTime()));
+        //MORPHIC_DEBUG("FPS : {0}", (1.0f / Time::GetDeltaTime()));
     }
     /*
     Scene scene;

@@ -1,3 +1,4 @@
+#include "mmafx.h"
 #include "GameObject.h"
 
 #include "../Logger.h"

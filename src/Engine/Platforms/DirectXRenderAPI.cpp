@@ -7,7 +7,7 @@ namespace Metamorphic{
     RenderAPI* RenderAPI::CreateRenderAPI(){
         return new DirectXRenderAPI();
     }
-    
+
     DirectXRenderAPI::DirectXRenderAPI(){}
     DirectXRenderAPI::~DirectXRenderAPI(){}
 

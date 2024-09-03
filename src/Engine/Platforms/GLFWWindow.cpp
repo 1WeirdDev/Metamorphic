@@ -29,8 +29,8 @@ namespace Metamorphic{
             MORPHIC_CORE_ERROR("Failed to create window");
             std::exit(-1);
         }
-        glfwMakeContextCurrent(m_Window);
         #ifdef METAMORPHIC_USE_OPENGL
+        glfwMakeContextCurrent(m_Window);
         if(glewInit() != GLEW_OK){
             MORPHIC_CORE_ERROR("Glew failed to initialize");
             glfwTerminate();
@@ -53,7 +53,7 @@ namespace Metamorphic{
             window_data.m_Height = height;
 
             //TODO: May have custom viewport inside the editor
-            glViewport(0,0, width, height);
+            //glViewport(0,0, width, height);
             WindowResizedEvent event(width, height);
             window_data.m_EventCallback(event);
         });
@@ -69,17 +69,17 @@ namespace Metamorphic{
             window_data.m_EventCallback(event);
         });
         m_IsOpen = true;
-        MORPHIC_CORE_INFO("Created window\n");
+        MORPHIC_CORE_INFO("Created GLFWWindow");
     }
     void GLFWWindow::Shutdown(){
         glfwDestroyWindow(m_Window);
         glfwTerminate();
-        MORPHIC_CORE_INFO("Destroyed window\n");
+        MORPHIC_CORE_INFO("Destroyed GLFWWindow");
     }
     void GLFWWindow::Update(){
         glfwPollEvents();
         glfwSwapBuffers(m_Window);
-        glClear(GL_COLOR_BUFFER_BIT);
+        //glClear(GL_COLOR_BUFFER_BIT);
     }
     
     void GLFWWindow::SetVsyncEnabled(bool p_Value){
