@@ -2,7 +2,6 @@
 
 #include "Window.h"
 
-
 namespace Metamorphic{
     class GLFWWindow : public Window{
     public:

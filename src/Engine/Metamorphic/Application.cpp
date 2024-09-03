@@ -34,7 +34,8 @@ namespace Metamorphic{
             });
         });
 
-        m_RenderAPI.Init();
+        m_RenderAPI = RenderAPI::CreateRenderAPI();
+        m_RenderAPI->Init();
 
         //Init Input System
         m_Input.Init();
@@ -56,7 +57,7 @@ namespace Metamorphic{
         OnUpdate();
     }
     void Application::Draw(){
-        m_RenderAPI.ClearScreen();
+        m_RenderAPI->ClearScreen();
         m_SceneManager.Draw();
         OnDraw();
     }
@@ -65,9 +66,13 @@ namespace Metamorphic{
         OnShutdown();
         m_SceneManager.Shutdown();
         m_Input.Shutdown();
-        m_RenderAPI.Shutdown();
+        m_RenderAPI->Shutdown();
+        delete m_RenderAPI;
+
         m_Window->Shutdown();
         delete m_Window;
+        
+        m_RenderAPI = nullptr;
         m_Window = nullptr;
         MORPHIC_CORE_DEBUG("Shutdown Application");
     }

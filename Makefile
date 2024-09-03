@@ -1,13 +1,13 @@
 #Platforms [Windows, Xbox, Android]
 #Engine Type can be Static | Dynamic
 #build type can be Editor | Sandbox
-#RenderingAPI can be OpenGL | DirectX
+#RenderingAPI can be [OpenGL, DirectX, Vulkan]
 
 Platform=Windows
 Configuration =Debug
 EngineType = Dynamic
 BuildType = Sandbox
-RenderingAPI = DirectX
+RenderingAPI = Vulkan
 
 #Names of the output files
 ENGINE_TARGET_NAME = MetamorphicEngine
@@ -94,22 +94,28 @@ DEFINES += /DMETAMORPHIC_PLATFORM=Windows /DMETAMORPHIC_USE_SPDLOG
 LIBS+=GDI32.lib Shell32.lib kernel32.lib User32.lib
 ENGINE_LFLAGS += /MACHINE:X64
 ENGINE_FILES += $(ENGINE_SRC)Platforms/DesktopInput.cpp
+ENGINE_INCLUDES +=  $(IF)libs/spdlog/include
 
 ifeq ($(RenderingAPI), OpenGL)
-DEFINES += $(DF)GLEW_STATIC $(DF)METAMORPHIC_USE_OPENGL
-EDITOR_INCLUDES += $(IF)libs/GLFW3.4/x64/include $(IF)libs/glew-2.2.0/include $(IF)libs/spdlog/include
+DEFINES += $(DF)GLEW_STATIC $(DF)METAMORPHIC_USE_OPENGL $(DF)METAMORPHIC_USE_GLFW
+EDITOR_INCLUDES += $(IF)libs/GLFW3.4/x64/include $(IF)libs/glew-2.2.0/include
 EDITOR_LIB_PATHS += /LIBPATH:"libs/GLFW3.4/x64/lib-vc2022" /LIBPATH:"libs/glew-2.2.0/libs/x64"
 EDITOR_LIBS += glfw3.lib glew32s.lib opengl32.lib
 
-ENGINE_FILES += $(PLATFORMS_SRC)GLFWWindow.cpp $(PLATFORMS_SRC)GLFWRenderAPI.cpp
-ENGINE_INCLUDES += $(IF)libs/GLFW3.4/x64/include $(IF)libs/glew-2.2.0/include $(IF)libs/spdlog/include
+ENGINE_FILES += $(PLATFORMS_SRC)GLFWWindow.cpp $(PLATFORMS_SRC)OpenGLRenderAPI.cpp
+ENGINE_INCLUDES += $(IF)libs/GLFW3.4/x64/include $(IF)libs/glew-2.2.0/include
 ENGINE_LIB_PATHS += /LIBPATH:"libs/GLFW3.4/x64/lib-vc2022" /LIBPATH:"libs/glew-2.2.0/libs/x64"
 ENGINE_LIBS += glfw3.lib glew32s.lib opengl32.lib
 else ifeq ($(RenderingAPI), DirectX)
 DEFINES += $(DF)METAMORPHIC_USE_DIRECTX
 ENGINE_FILES += $(PLATFORMS_SRC)DirectXWindow.cpp $(PLATFORMS_SRC)DirectXRenderAPI.cpp
 ENGINE_LIBS += D3d12.lib dxgi.lib
-
+else ifeq ($(RenderingAPI), Vulkan)
+ENGINE_INCLUDES += $(IF)libs/GLFW3.4/x64/include 
+DEFINES += $(DF)METAMORPHIC_USE_VULKAN $(DF)METAMORPHIC_USE_GLFW
+ENGINE_FILES += $(PLATFORMS_SRC)VulkanRenderAPI.cpp $(PLATFORMS_SRC)GLFWWindow.cpp
+ENGINE_LIB_PATHS += /LIBPATH:"libs/GLFW3.4/x64/lib-vc2022" 
+ENGINE_LIBS += glfw3.lib  opengl32.lib
 else
 $(error Windows Invalid Rendering API)
 endif

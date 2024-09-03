@@ -5,12 +5,14 @@
 namespace Metamorphic{
     class MORPHIC_API RenderAPI{
     public:
-        RenderAPI();
-        ~RenderAPI();
+        static RenderAPI* CreateRenderAPI();
 
-        void Init();
-        void Shutdown();
+        RenderAPI(){}
+        virtual ~RenderAPI(){}
 
-        void ClearScreen();
+        virtual void Init(){}
+        virtual void Shutdown(){}
+
+        virtual void ClearScreen(){}
     };
 }

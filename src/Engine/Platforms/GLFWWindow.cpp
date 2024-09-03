@@ -1,9 +1,6 @@
 #include "mmafx.h"
 #include "Metamorphic/Core.h"
 
-#include "GL/glew.h"
-#include "GLFW/glfw3.h"
-
 #include "Metamorphic/Display/GLFWWindow.h"
 #include "Metamorphic/Events/ApplicationEvents.h"
 #include "Metamorphic/Events/InputEvents.h"
@@ -21,7 +18,9 @@ namespace Metamorphic{
             MORPHIC_CORE_ERROR("Failed to initialize glfw.");
             return;
         }
-        
+        #ifdef METAMORPHIC_USE_VULKAN
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+        #endif
         m_Window = glfwCreateWindow(m_Data.m_Width, m_Data.m_Height, "Metamorphic Engine", nullptr, nullptr);
 
         GLFWvidmode* videoMode = (GLFWvidmode*)glfwGetVideoMode(glfwGetPrimaryMonitor());
@@ -31,12 +30,14 @@ namespace Metamorphic{
             std::exit(-1);
         }
         glfwMakeContextCurrent(m_Window);
+        #ifdef METAMORPHIC_USE_OPENGL
         if(glewInit() != GLEW_OK){
             MORPHIC_CORE_ERROR("Glew failed to initialize");
             glfwTerminate();
             std::exit(-1);
             return;
         }
+        #endif
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 
         //Setting callback

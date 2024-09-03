@@ -26,13 +26,13 @@ namespace Metamorphic{
     public:
         bool ShouldUpdate() const noexcept {return m_Window->ShouldUpdate();}
         Window* GetWindow() const noexcept {return m_Window;}
+        RenderAPI* GetRenderAPI() const noexcept{return m_RenderAPI;}
 
-        const RenderAPI& GetRenderAPI() const noexcept{return m_RenderAPI;}
         const Input& GetInput() const noexcept {return m_Input;}
         const SceneManager& GetSceneManager() const noexcept {return m_SceneManager;}
     protected:
         Window* m_Window = nullptr;
-        RenderAPI m_RenderAPI;
+        RenderAPI* m_RenderAPI = nullptr;
         Input m_Input;
         SceneManager m_SceneManager;
     };

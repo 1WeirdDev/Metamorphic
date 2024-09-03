@@ -1,18 +1,22 @@
 #include "mmafx.h"
 
 #include "Metamorphic/Logger.h"
-#include "Metamorphic/Display/Rendering/RenderAPI.h"
+#include "Metamorphic/Display/Rendering/DirectXRenderAPI.h"
 
 namespace Metamorphic{
-    RenderAPI::RenderAPI(){}
-    RenderAPI::~RenderAPI(){}
-
-    void RenderAPI::Init(){
-        MORPHIC_CORE_INFO("Initialized DirectX RenderAPI");
+    RenderAPI* RenderAPI::CreateRenderAPI(){
+        return new DirectXRenderAPI();
     }
-    void RenderAPI::Shutdown(){
-        MORPHIC_CORE_INFO("Shutdown DirectX RenderAPI");
+    
+    DirectXRenderAPI::DirectXRenderAPI(){}
+    DirectXRenderAPI::~DirectXRenderAPI(){}
+
+    void DirectXRenderAPI::Init(){
+        MORPHIC_CORE_INFO("Initialized DirectXRenderAPI");
+    }
+    void DirectXRenderAPI::Shutdown(){
+        MORPHIC_CORE_INFO("Shutdown DirectXRenderAPI");
     }
 
-    void RenderAPI::ClearScreen(){}
+    void DirectXRenderAPI::ClearScreen(){}
 }

@@ -36,12 +36,15 @@
 #error Invalid Metamorphic Platform specified
 #endif
 
-#if METAMORPHIC_USE_SPDLOG
+#ifdef METAMORPHIC_USE_SPDLOG
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #endif
 
-#if METAMORPHIC_USE_GLFW
-
+#ifdef METAMORPHIC_USE_GLFW
+#ifdef METAMORPHIC_USE_OPENGL
+    #include <GL/glew.h>
+#endif
+#include <GLFW/glfw3.h>
 #endif
