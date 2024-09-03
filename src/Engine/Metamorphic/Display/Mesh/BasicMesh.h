@@ -5,8 +5,9 @@
 
 namespace Metamorphic{
     //Can be types of any number types like int,float
+    //Template classes dont need to be exported
     template <typename VERTEX_TYPE, typename INDEX_TYPE>
-    class MORPHIC_API BasicMesh : public Component{
+    class BasicMesh : public Component{
     public:
         ~BasicMesh() override{
             

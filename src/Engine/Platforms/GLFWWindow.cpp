@@ -4,14 +4,19 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
-#include "Metamorphic/Display/Window.h"
+#include "Metamorphic/Display/GLFWWindow.h"
 #include "Metamorphic/Events/ApplicationEvents.h"
 #include "Metamorphic/Events/InputEvents.h"
 #include "Metamorphic/Logger.h"
 
 namespace Metamorphic{
-
-    void Window::Init(){
+    Window* Window::Create(){
+        return (Window*)new GLFWWindow();
+    }
+    GLFWWindow::GLFWWindow(){}
+    GLFWWindow::~GLFWWindow(){}
+    
+    void GLFWWindow::Init(){
         if(!glfwInit()){
             MORPHIC_CORE_ERROR("Failed to initialize glfw.");
             return;
@@ -65,17 +70,20 @@ namespace Metamorphic{
         m_IsOpen = true;
         MORPHIC_CORE_INFO("Created window\n");
     }
-    void Window::Shutdown(){
+    void GLFWWindow::Shutdown(){
         glfwDestroyWindow(m_Window);
         glfwTerminate();
         MORPHIC_CORE_INFO("Destroyed window\n");
     }
-    void Window::SetEventHandlerCallback(EventHandlerCallback p_EventHandler){
-        m_Data.m_EventCallback = p_EventHandler;
-    }
-    void Window::Update(){
+    void GLFWWindow::Update(){
         glfwPollEvents();
         glfwSwapBuffers(m_Window);
         glClear(GL_COLOR_BUFFER_BIT);
+    }
+    
+    void GLFWWindow::SetVsyncEnabled(bool p_Value){
+        m_Data.m_VsyncEnabled = p_Value;
+
+        glfwSwapInterval(p_Value ? 1 : 0);
     }
 }

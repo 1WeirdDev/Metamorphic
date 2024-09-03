@@ -4,6 +4,7 @@
 #include "Metamorphic/Core.h"
 #include "Metamorphic/Application.h"
 #include "Metamorphic/Logger.h"
+#include "Metamorphic/Time.h"
 
 /* Scenes */
 #include "Metamorphic/Scene/Scene.h"

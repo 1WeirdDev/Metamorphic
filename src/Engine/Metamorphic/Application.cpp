@@ -7,12 +7,13 @@
 
 namespace Metamorphic{
     Application::Application(){
-        m_Window.Init();
+        m_Window = Window::Create();
+        m_Window->Init();
 
-        m_Window.SetEventHandlerCallback([this](Event& e){
+        m_Window->SetEventHandlerCallback([this](Event& e){
             EventDispatcher dispatcher(e);
             dispatcher.Dispatch<WindowCloseEvent>([this](WindowCloseEvent& event){
-                m_Window.SetShouldUpdate(false);
+                m_Window->SetShouldUpdate(false);
                 return true;
             });
 
@@ -33,6 +34,8 @@ namespace Metamorphic{
             });
         });
 
+        m_RenderAPI.Init();
+
         //Init Input System
         m_Input.Init();
 
@@ -46,20 +49,26 @@ namespace Metamorphic{
         OnAwake();
     }
     void Application::Update(){
-        m_Window.Update();
+        m_Window->Update();
         m_Input.Update();
         
         m_SceneManager.Update();
         OnUpdate();
     }
     void Application::Draw(){
+        m_RenderAPI.ClearScreen();
         m_SceneManager.Draw();
         OnDraw();
     }
 
-    void Application::CleanUp(){
+    void Application::Shutdown(){
+        OnShutdown();
         m_SceneManager.Shutdown();
         m_Input.Shutdown();
-        m_Window.Shutdown();
+        m_RenderAPI.Shutdown();
+        m_Window->Shutdown();
+        delete m_Window;
+        m_Window = nullptr;
+        MORPHIC_CORE_DEBUG("Shutdown Application");
     }
 }

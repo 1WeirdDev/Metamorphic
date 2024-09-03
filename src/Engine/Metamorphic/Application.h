@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "Display/Window.h"
+#include "Display/Rendering/RenderAPI.h"
 #include "Input.h"
 #include "Scene/SceneManager.h"
 
@@ -16,18 +17,22 @@ namespace Metamorphic{
         void Awake();
         void Update();
         void Draw();
-        void CleanUp();
+        void Shutdown();
 
+        virtual void OnShutdown(){}
         virtual void OnAwake(){}
         virtual void OnUpdate(){}
         virtual void OnDraw(){}
     public:
-        bool ShouldUpdate() const noexcept {return m_Window.ShouldUpdate();}
-        const Window& GetWindow() const noexcept {return m_Window;}
+        bool ShouldUpdate() const noexcept {return m_Window->ShouldUpdate();}
+        Window* GetWindow() const noexcept {return m_Window;}
+
+        const RenderAPI& GetRenderAPI() const noexcept{return m_RenderAPI;}
         const Input& GetInput() const noexcept {return m_Input;}
         const SceneManager& GetSceneManager() const noexcept {return m_SceneManager;}
     protected:
-        Window m_Window;
+        Window* m_Window = nullptr;
+        RenderAPI m_RenderAPI;
         Input m_Input;
         SceneManager m_SceneManager;
     };
