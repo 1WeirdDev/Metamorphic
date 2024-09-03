@@ -7,7 +7,7 @@ Platform=Windows
 Configuration =Debug
 EngineType = Dynamic
 BuildType = Sandbox
-RenderingAPI = Vulkan
+RenderingAPI = OpenGL
 
 #Names of the output files
 ENGINE_TARGET_NAME = MetamorphicEngine
