@@ -2,7 +2,7 @@
 
 #include "Metamorphic/Logger.h"
 
-#include "Metamorphic/Display/Rendering/OpenGLRenderAPI.h"
+#include "Metamorphic/Rendering/RenderAPIS/OpenGLRenderAPI.h"
 
 namespace Metamorphic{
     RenderAPI* RenderAPI::CreateRenderAPI(){
@@ -18,6 +18,11 @@ namespace Metamorphic{
 
     void OpenGLRenderAPI::Shutdown(){
         MORPHIC_CORE_INFO("Shut Down OpenGLRenderAPI");
+    }
+    
+    void OpenGLRenderAPI::OnWindowResize(WindowResizedEvent& e){
+        glViewport(0, 0, e.GetWidth(), e.GetHeight());
+        MORPHIC_CORE_INFO("OpenGLRenderAPI Resized window {0} {1}", e.GetWidth(), e.GetHeight());
     }
     void OpenGLRenderAPI::ClearScreen(){
         glClear(GL_COLOR_BUFFER_BIT);

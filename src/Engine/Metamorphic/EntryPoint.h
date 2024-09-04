@@ -11,12 +11,18 @@
 extern Metamorphic::Application* CreateApplication();
 
 using namespace Metamorphic;
-int main(int argc, char** argv){
+#ifdef METAMORPHIC_ENGINE_BUILD_DIST
+#define METAMORPHIC_MAIN int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
+#else
+#define METAMORPHIC_MAIN int main(int argc, char** argv)
+#endif
+
+METAMORPHIC_MAIN{
     Logger::Init();
     Application* application = CreateApplication();
-    MORPHIC_CORE_LOG("Created Application");
     Time::Init();
     application->Awake();
+    MORPHIC_CORE_LOG("Created Application");
     while(application->ShouldUpdate()){
         Time::Update();
         application->Update();

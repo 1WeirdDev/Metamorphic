@@ -1,7 +1,7 @@
 #include "mmafx.h"
 
 #include "Metamorphic/Logger.h"
-#include "Metamorphic/Display/Rendering/DirectXRenderAPI.h"
+#include "Metamorphic/Rendering/RenderAPIS/DirectXRenderAPI.h"
 
 namespace Metamorphic{
     RenderAPI* RenderAPI::CreateRenderAPI(){

@@ -1,33 +1,18 @@
 #include "mmafx.h"
 
 #include "Metamorphic/Logger.h"
-#include "Metamorphic/Display/Rendering/VulkanRenderAPI.h"
+#include "Metamorphic/Display/GLFWWindow.h"
+#include "Metamorphic/Rendering/RenderAPIS/VulkanRenderAPI.h"
+#include "Metamorphic/Application.h"
 
 namespace Metamorphic{
-    RenderAPI* RenderAPI::CreateRenderAPI(){
-        return new VulkanRenderAPI();
+    RenderAPI* RenderAPI::CreateRenderAPI(Application& p_App){
+        return new VulkanRenderAPI(p_App);
     }
-    VulkanRenderAPI::VulkanRenderAPI(){}
+    VulkanRenderAPI::VulkanRenderAPI(Application& p_App) : RenderAPI(p_App){}
     VulkanRenderAPI::~VulkanRenderAPI(){}
     
     void VulkanRenderAPI::Init(){
-        /*MORPHIC_CORE_DEBUG("TEST1");
-        appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-        appInfo.pApplicationName = "Hello Triangle";
-        appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-        appInfo.pEngineName = "No Engine";
-        appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
-        appInfo.apiVersion = VK_API_VERSION_1_0;
-        MORPHIC_CORE_DEBUG("TEST2");
-
-        createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-        createInfo.pApplicationInfo = &appInfo;
-        MORPHIC_CORE_DEBUG("TEST3");
-        
-        if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
-            MORPHIC_CORE_ERROR("Failed to initialize Vulkan RenderAPI");
-            return;
-        }*/
         VkApplicationInfo appInfo{};
         appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
         appInfo.pApplicationName = "Hello Triangle";
@@ -48,14 +33,23 @@ namespace Metamorphic{
         createInfo.ppEnabledExtensionNames = glfwExtensions;
         createInfo.enabledLayerCount = 0;
 
-        VkInstance instance = {};
-        if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
-    throw std::runtime_error("failed to create instance!");
-}
+        if (vkCreateInstance(&createInfo, nullptr, &m_Instance) != VK_SUCCESS) {
+            MORPHIC_CORE_ERROR("Failed To Initialize Vulkan RenderAPI");
+            return;
+        }
+
+        //Create Surface
+        VkResult result;
+        #ifdef METAMORPHIC_USE_GLFW
+        //HWND hwnd = ((GLFWWindow*)m_Application->GetWindow())->GetHWND();
+        result = glfwCreateWindowSurface(m_Instance, ((GLFWWindow*)m_Application->GetWindow())->GetGLFWWindow(), nullptr, &m_Surface);
+        #endif
 
         MORPHIC_CORE_INFO("Initialized Vulkan RenderAPI");
     }
     void VulkanRenderAPI::Shutdown(){
+        vkDestroySurfaceKHR(m_Instance, m_Surface, nullptr);
+        vkDestroyInstance(m_Instance, nullptr);
         MORPHIC_CORE_INFO("Shutdown Vulkan RenderAPI");
     }
 

@@ -5,7 +5,6 @@
 #include "Metamorphic/Events/ApplicationEvents.h"
 #include "Metamorphic/Events/InputEvents.h"
 #include "Metamorphic/Logger.h"
-
 namespace Metamorphic{
     Window* Window::Create(){
         return (Window*)new GLFWWindow();

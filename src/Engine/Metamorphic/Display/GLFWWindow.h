@@ -13,7 +13,16 @@ namespace Metamorphic{
 
         void SetVsyncEnabled(bool p_Value);
         void Update() override;
+
+    public:
+    #if METAMORPHIC_PLATFORM == Windows
+        HWND GetHWND() const{
+            return glfwGetWin32Window(m_Window);
+        }
+    #endif
+
+        GLFWwindow* GetGLFWWindow() const noexcept{return m_Window;}
     private:
-        class GLFWwindow* m_Window = nullptr;
+       GLFWwindow* m_Window = nullptr;
     };
 }

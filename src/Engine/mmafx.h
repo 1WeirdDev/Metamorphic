@@ -28,10 +28,7 @@
     #include <wchar.h>
     //#include <wrl.h> // For Microsoft's WRL (Windows Runtime Library)
 
-    #ifdef METAMORPHIC_USE_DIRECTX
-        #include <d3d12.h>
-        #include <dxgi1_6.h>
-    #endif
+    #define GLFW_EXPOSE_NATIVE_WIN32
 #else
 #error Invalid Metamorphic Platform specified
 #endif
@@ -43,8 +40,15 @@
 #endif
 
 #ifdef METAMORPHIC_USE_GLFW
-#ifdef METAMORPHIC_USE_OPENGL
-    #include <GL/glew.h>
-#endif
-#include <GLFW/glfw3.h>
+    #ifdef METAMORPHIC_USE_OPENGL
+        #include <GL/glew.h>
+    #endif
+    #include <GLFW/glfw3.h>
+    
+    #ifdef METAMORPHIC_EXPOSE_GLFW_NATIVE
+    #include <GLFW/glfw3native.h>
+    #endif
+#elif defined(METAMORPHIC_USE_DIRECTX)
+    #include <d3d12.h>
+    #include <dxgi1_6.h>
 #endif

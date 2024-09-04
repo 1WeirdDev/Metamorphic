@@ -34,7 +34,7 @@ namespace Metamorphic{
             });
         });
 
-        m_RenderAPI = RenderAPI::CreateRenderAPI();
+        m_RenderAPI = RenderAPI::CreateRenderAPI(*this);
         m_RenderAPI->Init();
 
         //Init Input System

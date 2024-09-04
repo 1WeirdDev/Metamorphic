@@ -1,23 +1,10 @@
 #pragma once
+
 #include "mmafx.h"
+
 #include "../Core.h"
 #include "../Events/Event.h"
 
-/*
-#if METAMORPHIC_ENGINE_BUILD || METAMORPHIC_EDITOR_BUILD
-    #if METAMORPHIC_USE_OPENGL
-        #include <GL/glew.h>
-        #include <GLFW/glfw3.h>
-        #define WINDOW_TYPE GLFWwindow*
-    #elif METAMORPHIC_USE_DIRECTX
-        #define WINDOW_TYPE void*
-    #else
-        #error Invalid Rendering API Specified
-    #endif
-#else
-#define WINDOW_TYPE void*
-#endif
-*/
 namespace Metamorphic{
     class MORPHIC_API Window{
     public:

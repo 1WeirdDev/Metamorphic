@@ -4,7 +4,7 @@
 #RenderingAPI can be [OpenGL, DirectX, Vulkan]
 
 Platform=Windows
-Configuration =Debug
+Configuration =Release
 EngineType = Dynamic
 BuildType = Sandbox
 RenderingAPI = Vulkan
@@ -61,7 +61,7 @@ CFLAGS = /std:c++17
 LFLAGS =
 ENGINE_PCH_NAME = mmafx
 EDITOR_PCH_NAME = mmepch
-DEFINES +=$(DF)METAMORPHIC_PLATFORM=WINDOWS
+DEFINES +=$(DF)METAMORPHIC_PLATFORM=Windows
 CRT = /MD
 PROGRAM_ARGS = 
 INCLUDE_DIRS += $(IF)libs/spdlog/include
@@ -112,6 +112,7 @@ ENGINE_DEFINES += $(DF)METAMORPHIC_USE_DIRECTX
 ENGINE_FILES += $(PLATFORMS_SRC)DirectXWindow.cpp $(PLATFORMS_SRC)DirectXRenderAPI.cpp
 ENGINE_LIBS += D3d12.lib dxgi.lib
 else ifeq ($(RenderingAPI), Vulkan)
+ENGINE_DEFINES += $(DF)METAMORPHIC_EXPOSE_GLFW_NATIVE
 ENGINE_DEFINES += $(DF)GLFW_INCLUDE_VULKAN $(DF)METAMORPHIC_USE_VULKAN $(DF)METAMORPHIC_USE_GLFW
 ENGINE_INCLUDES += $(IF)libs/GLFW3.4/x64/include $(IF)$(VK_PATH)/Include/
 ENGINE_FILES += $(PLATFORMS_SRC)VulkanRenderAPI.cpp $(PLATFORMS_SRC)GLFWWindow.cpp
