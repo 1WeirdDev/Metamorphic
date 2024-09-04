@@ -76,7 +76,7 @@ CFLAGS +=  /Zi /Od
 LFLAGS +=  /INCREMENTAL
 else ifeq ($(Configuration), Release)
 DEFINES +=$(DF)METAMORPHIC_ENGINE_BUILD_RELEASE
-CFLAGS += /GR- /O2 /GL /Ot
+CFLAGS += /GR- /O2 /Ot
 LFLAGS +=  /INCREMENTAL
 else
 DEFINES +=$(DF)METAMORPHIC_ENGINE_BUILD_DIST
@@ -108,8 +108,8 @@ ENGINE_INCLUDES += $(IF)libs/GLFW3.4/x64/include $(IF)libs/glew-2.2.0/include
 ENGINE_LIB_PATHS += $(LPF)"libs/GLFW3.4/x64/lib-vc2022" $(LPF)"libs/glew-2.2.0/libs/x64"
 ENGINE_LIBS += glfw3.lib glew32s.lib opengl32.lib
 else ifeq ($(RenderingAPI), DirectX)
-ENGINE_DEFINES += $(DF)METAMORPHIC_USE_DIRECTX
-ENGINE_FILES += $(PLATFORMS_SRC)DirectXWindow.cpp $(PLATFORMS_SRC)DirectXRenderAPI.cpp
+ENGINE_DEFINES += $(DF)METAMORPHIC_USE_DIRECTX $(DF)METAMORPHIC_USE_WIN32_API
+ENGINE_FILES += $(PLATFORMS_SRC)Win32Window.cpp $(PLATFORMS_SRC)DirectXRenderAPI.cpp
 ENGINE_LIBS += D3d12.lib dxgi.lib
 else ifeq ($(RenderingAPI), Vulkan)
 ENGINE_DEFINES += $(DF)METAMORPHIC_EXPOSE_GLFW_NATIVE
@@ -222,7 +222,8 @@ build_engine:
 	$(call f_build_engine)
 build_sandbox:
 	$(call f_build_sandbox)
-
+install_server_modules:
+	npm install express
 run:
 ifneq ($(Configuration), Dist)
 	gdb -ex run -ex quit -ex "set args $(PROGRAM_ARGS)" $(FILE_NAME).exe

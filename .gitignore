@@ -1,1 +1,3 @@
 bin-int/
+node_modules/
+vc140.pdb
