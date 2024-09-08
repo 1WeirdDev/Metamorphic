@@ -15,7 +15,7 @@ namespace Metamorphic{
         void Update() override;
 
     public:
-    #if METAMORPHIC_PLATFORM == Windows
+    #if METAMORPHIC_PLATFORM == Windows && METAMORPHIC_EXPOSE_GLFW_NATIVE
         HWND GetHWND() const{
             return glfwGetWin32Window(m_Window);
         }

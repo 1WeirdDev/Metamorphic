@@ -5,10 +5,10 @@
 #include "Metamorphic/Rendering/RenderAPIS/VulkanRenderAPI.h"
 #include "Metamorphic/Application.h"
 namespace Metamorphic{
-    RenderAPI* RenderAPI::CreateRenderAPI(Application& p_App){
-        return new VulkanRenderAPI(p_App);
+    RenderAPI* RenderAPI::CreateRenderAPI(Application& app){
+        return new VulkanRenderAPI(app);
     }
-    VulkanRenderAPI::VulkanRenderAPI(Application& p_App) : RenderAPI(p_App){}
+    VulkanRenderAPI::VulkanRenderAPI(Application& app) : RenderAPI(app){}
     VulkanRenderAPI::~VulkanRenderAPI(){}
     
     void VulkanRenderAPI::Init(){

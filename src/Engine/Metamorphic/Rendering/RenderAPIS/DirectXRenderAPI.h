@@ -5,7 +5,7 @@
 namespace Metamorphic{
     class MORPHIC_API DirectXRenderAPI : public RenderAPI{
     public:
-        DirectXRenderAPI(Application& p_App);
+        DirectXRenderAPI(Application& app);
         ~DirectXRenderAPI() override;
 
         void Init() override;

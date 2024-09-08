@@ -10,7 +10,7 @@ namespace Metamorphic{
     public:
         static RenderAPI* CreateRenderAPI(Application& application);
 
-        RenderAPI(Application& p_App){m_Application = &p_App;}
+        RenderAPI(Application& app){m_Application = &app;}
         virtual ~RenderAPI(){}
 
         virtual void Init(){}

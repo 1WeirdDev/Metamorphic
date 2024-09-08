@@ -37,3 +37,9 @@ namespace Metamorphic{
         bool m_ShouldFree = true;
     };
 }
+
+class test{
+public:
+    template <typename t>
+    void Hello();
+};

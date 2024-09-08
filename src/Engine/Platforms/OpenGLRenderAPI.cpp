@@ -5,10 +5,10 @@
 #include "Metamorphic/Rendering/RenderAPIS/OpenGLRenderAPI.h"
 
 namespace Metamorphic{
-    RenderAPI* RenderAPI::CreateRenderAPI(){
-        return new OpenGLRenderAPI();
+    RenderAPI* RenderAPI::CreateRenderAPI(Application& app){
+        return new OpenGLRenderAPI(app);
     }
-    OpenGLRenderAPI::OpenGLRenderAPI(){}
+    OpenGLRenderAPI::OpenGLRenderAPI(Application& app) : RenderAPI(app){}
     OpenGLRenderAPI::~OpenGLRenderAPI(){}
 
     void OpenGLRenderAPI::Init(){

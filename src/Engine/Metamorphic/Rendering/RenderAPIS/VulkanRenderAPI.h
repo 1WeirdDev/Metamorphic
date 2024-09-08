@@ -4,7 +4,7 @@
 namespace Metamorphic{
     class MORPHIC_API VulkanRenderAPI : public RenderAPI{
     public:
-        VulkanRenderAPI(Application& p_app);
+        VulkanRenderAPI(Application& app);
         ~VulkanRenderAPI() override;
 
         void Init() override;

@@ -11,7 +11,7 @@ namespace Metamorphic{
         void Start() const;
         void Stop() const;
 
-        void Compile(const char* p_ShaderData);
+        void Compile(const char* shaderData);
         void CleanUp();
     }
 }

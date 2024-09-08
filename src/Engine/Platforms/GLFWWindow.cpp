@@ -28,6 +28,7 @@ namespace Metamorphic{
             MORPHIC_CORE_ERROR("Failed to create window");
             std::exit(-1);
         }
+        
         #ifdef METAMORPHIC_USE_OPENGL
         glfwMakeContextCurrent(m_Window);
         if(glewInit() != GLEW_OK){
@@ -83,7 +84,7 @@ namespace Metamorphic{
     
     void GLFWWindow::SetVsyncEnabled(bool p_Value){
         m_Data.m_VsyncEnabled = p_Value;
-
+        MORPHIC_CORE_INFO("Setting Vsync {0}", p_Value ? "On" : "Off");
         glfwSwapInterval(p_Value ? 1 : 0);
     }
 }

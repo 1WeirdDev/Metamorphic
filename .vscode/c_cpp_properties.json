@@ -6,7 +6,9 @@
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/src/Editor",
                 "${workspaceFolder}/src/Engine",
-                "${workspaceFolder}/src/Sandbox"
+                "${workspaceFolder}/src/Sandbox",
+                "${workspaceFolder}/libs\\GLFW3.4\\x64\\include",
+                "${workspaceFolder}/libs\\glew-2.2.0\\include"
             ],
             "defines": [],
             "windowsSdkVersion": "10.0.22621.0",

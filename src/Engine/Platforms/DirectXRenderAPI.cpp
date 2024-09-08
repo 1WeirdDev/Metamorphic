@@ -4,11 +4,11 @@
 #include "Metamorphic/Rendering/RenderAPIS/DirectXRenderAPI.h"
 
 namespace Metamorphic{
-    RenderAPI* RenderAPI::CreateRenderAPI(){
-        return new DirectXRenderAPI();
+    RenderAPI* RenderAPI::CreateRenderAPI(Application& app){
+        return new DirectXRenderAPI(app);
     }
 
-    DirectXRenderAPI::DirectXRenderAPI(){}
+    DirectXRenderAPI::DirectXRenderAPI(Application& app) : RenderAPI(app){}
     DirectXRenderAPI::~DirectXRenderAPI(){}
 
     void DirectXRenderAPI::Init(){

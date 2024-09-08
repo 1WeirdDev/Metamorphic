@@ -1,0 +1,11 @@
+//
+
+Mesh Classes
+B = byte
+UB = unsigned byte
+S = short
+US = unsigned short
+I = int
+UI = Unsigned int
+L = long
+UL = unsigned long

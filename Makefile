@@ -7,7 +7,7 @@ Platform=Windows
 Configuration =Release
 EngineType = Dynamic
 BuildType = Sandbox
-RenderingAPI = Vulkan
+RenderingAPI = OpenGL
 
 #Names of the output files
 ENGINE_TARGET_NAME = MetamorphicEngine
@@ -104,6 +104,7 @@ EDITOR_LIB_PATHS += $(LPF)"libs/GLFW3.4/x64/lib-vc2022" $(LPF)"libs/glew-2.2.0/l
 EDITOR_LIBS += glfw3.lib glew32s.lib opengl32.lib
 
 ENGINE_FILES += $(PLATFORMS_SRC)GLFWWindow.cpp $(PLATFORMS_SRC)OpenGLRenderAPI.cpp
+ENGINE_FILES += $(PLATFORMS_SRC)Rendering/OpenGL/OpenGLBasicMesh.cpp
 ENGINE_INCLUDES += $(IF)libs/GLFW3.4/x64/include $(IF)libs/glew-2.2.0/include
 ENGINE_LIB_PATHS += $(LPF)"libs/GLFW3.4/x64/lib-vc2022" $(LPF)"libs/glew-2.2.0/libs/x64"
 ENGINE_LIBS += glfw3.lib glew32s.lib opengl32.lib
@@ -197,6 +198,7 @@ define f_build_sandbox
 endef
 
 define f_build_engine_all
+	$(RM) "bin-int"
 	$(call f_make_folders)
 	$(call f_build_engine_pch)
 	$(call f_build_engine)
@@ -206,8 +208,11 @@ define f_rebuild_all:
 	$(call clean)
 	$(call f_build_all)
 endef
-push:
-	push.bat
+push:git add *
+git status
+git commit -a -m "update"
+git push
+@PAUSE
 copy_engine_dll:
 	cp -f $(ENGINE_OUTPUT_DIR)$(ENGINE_TARGET_NAME).dll $(DLL_OUTPUT_DIR)$(ENGINE_TARGET_NAME).dll;
 make_folders:

@@ -10,3 +10,7 @@ namespace Metamorphic{
     void Component::Update(){}
     void Component::Draw(){}
 }
+template <typename t>
+void test::Hello(){
+    std::cout << "HEllo World" << std::endl;
+}

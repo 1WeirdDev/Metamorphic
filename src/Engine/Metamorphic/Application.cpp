@@ -9,7 +9,8 @@ namespace Metamorphic{
     Application::Application(){
         m_Window = Window::Create();
         m_Window->Init();
-
+        m_Window->SetVsyncEnabled(false);
+        
         m_Window->SetEventHandlerCallback([this](Event& e){
             EventDispatcher dispatcher(e);
             dispatcher.Dispatch<WindowCloseEvent>([this](WindowCloseEvent& event){

@@ -14,7 +14,13 @@
 #include "Metamorphic/Objects/GameObject.h"
 
 /*  Rendering */
-#include "Metamorphic/Display/Mesh/BasicMesh.h"
+#include "Metamorphic/Rendering/Mesh/BasicMesh.h"
+//#ifdef METAMORPHIC_USE_OPENGL
+//#include "Platforms/Rendering/OpenGL/BasicMesh.h"
+//#else
+
+//#error NO VALID RENDERING API FOR MESHES
+//#endif
 
 /* Entry Point*/
 #ifndef METAMORPHIC_NO_ENTRY_POINT

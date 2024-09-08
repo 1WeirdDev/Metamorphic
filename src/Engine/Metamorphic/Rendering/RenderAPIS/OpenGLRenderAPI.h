@@ -5,7 +5,7 @@
 namespace Metamorphic{
     class MORPHIC_API OpenGLRenderAPI : public RenderAPI{
     public:
-        OpenGLRenderAPI(Application& p_App);
+        OpenGLRenderAPI(Application& app);
         ~OpenGLRenderAPI() override;
 
         void Init() override;

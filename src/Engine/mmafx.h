@@ -39,10 +39,11 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 #endif
 
+#ifdef METAMORPHIC_USE_OPENGL
+    #include <GL/glew.h>
+#endif
+
 #ifdef METAMORPHIC_USE_GLFW
-    #ifdef METAMORPHIC_USE_OPENGL
-        #include <GL/glew.h>
-    #endif
     #include <GLFW/glfw3.h>
     
     #ifdef METAMORPHIC_EXPOSE_GLFW_NATIVE
