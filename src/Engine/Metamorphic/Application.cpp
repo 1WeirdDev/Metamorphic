@@ -47,6 +47,7 @@ namespace Metamorphic{
     }
     
     void Application::Awake(){
+        m_SceneManager.Awake();
         OnAwake();
     }
     void Application::Update(){

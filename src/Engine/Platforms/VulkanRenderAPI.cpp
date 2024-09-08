@@ -45,36 +45,39 @@ namespace Metamorphic{
         VkResult result = {};
         #ifdef METAMORPHIC_USE_GLFW
         result = glfwCreateWindowSurface(m_Instance, ((GLFWWindow*)m_Application->GetWindow())->GetGLFWWindow(), nullptr, &m_Surface);
+        #else
+        #error METAMORPHIC VULKAN RENDER API HAS NO SURFACE CREATOR
         #endif
+        
         switch (result) {
-    case VK_ERROR_OUT_OF_HOST_MEMORY:
-        std::cerr << "Out of host memory" << std::endl;
-        break;
-    case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        std::cerr << "Out of device memory" << std::endl;
-        break;
-    case VK_ERROR_INITIALIZATION_FAILED:
-        std::cerr << "Initialization failed" << std::endl;
-        break;
-    case VK_ERROR_EXTENSION_NOT_PRESENT:
-        std::cerr << "Extension not present" << std::endl;
-        break;
-    case VK_ERROR_FEATURE_NOT_PRESENT:
-        std::cerr << "Feature not present" << std::endl;
-        break;
-    case VK_ERROR_FORMAT_NOT_SUPPORTED:
-        std::cerr << "Format not supported" << std::endl;
-        break;
-    case VK_ERROR_SURFACE_LOST_KHR:
-        std::cerr << "Surface lost" << std::endl;
-        break;
-    case VK_ERROR_NATIVE_WINDOW_IN_USE_KHR:
-        std::cerr << "Native window in use" << std::endl;
-        break;
-    default:
-        std::cerr << "Unknown error " << result << std::endl;
-        break;
-}
+            case VK_ERROR_OUT_OF_HOST_MEMORY:
+                std::cerr << "Out of host memory" << std::endl;
+                break;
+            case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+                std::cerr << "Out of device memory" << std::endl;
+                break;
+            case VK_ERROR_INITIALIZATION_FAILED:
+                std::cerr << "Initialization failed" << std::endl;
+                break;
+            case VK_ERROR_EXTENSION_NOT_PRESENT:
+                std::cerr << "Extension not present" << std::endl;
+                break;
+            case VK_ERROR_FEATURE_NOT_PRESENT:
+                std::cerr << "Feature not present" << std::endl;
+                break;
+            case VK_ERROR_FORMAT_NOT_SUPPORTED:
+                std::cerr << "Format not supported" << std::endl;
+                break;
+            case VK_ERROR_SURFACE_LOST_KHR:
+                std::cerr << "Surface lost" << std::endl;
+                break;
+            case VK_ERROR_NATIVE_WINDOW_IN_USE_KHR:
+                std::cerr << "Native window in use" << std::endl;
+                break;
+            default:
+                std::cerr << "Unknown error " << result << std::endl;
+                break;
+        }
 
         if (result != VK_SUCCESS) {
             MORPHIC_CORE_ERROR("Failed To Initialize Vulkan RenderAPI Surface View");

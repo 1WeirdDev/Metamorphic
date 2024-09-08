@@ -1,0 +1,98 @@
+:root{
+    --main-bg-color: #1c1c1c;
+    --nav-color: #1d1d1d;
+    --side-bar-color:#1e1e1e;
+
+    --main-font-family: DejaVu Sans Mono, monospace;
+    --nav-bar-text-color: #908787;
+    --nav-bar-height:50px;
+}
+body{
+    background-color:var(--main-bg-color);
+    -webkit-font-smoothing: antialiased; /* For WebKit browsers like Chrome and Safari */
+    -moz-osx-font-smoothing: grayscale;  /* For Firefox on macOS */
+    margin:0px;
+}
+h1{
+    color:#bdc6ca;
+    font-family:var(--main-font-family);
+    font-size: 35px;
+}
+h2{
+    color:#bdc6ca;
+    font-family:var(--main-font-family);
+    font-size: 30px;
+}
+h3{
+    color:#bdc6ca;
+    font-family:var(--main-font-family);
+    font-size: 25px;
+}
+p{
+    color:#a9afb1;
+    font-family:var(--main-font-family);
+}
+.topnav {
+    background-color: var(--nav-color);
+    overflow: hidden;
+    text-align: center;
+    position:fixed;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:var(--nav-bar-height);
+    border-bottom: 1px solid #0c0c0c;
+    z-index: 1;
+}
+  
+/* Style the links inside the navigation bar */
+.topnav a {
+    color: var(--nav-bar-text-color);
+    display: inline-block;
+    padding: 14px 12px;
+    text-decoration: none;
+    font-size: 18px;
+    font-family:var(--main-font-family);
+}
+
+.sidenav {
+    background-color: var(--side-bar-color);
+    position:fixed;
+    margin-top:50px;
+    top: 0;
+    left: 0;
+    height: calc(100vh - var(--nav-bar-height));
+    width: 260px;
+    overflow-x: hidden;
+    padding-top: 20px;
+    border-right: 1px solid #0c0c0c;
+}
+.sidenav center > h3{
+    margin-top:10px;
+}
+.sidebar-content{
+    text-align: none;
+    position:relative;
+    margin:2px;
+}
+.sidebar-content ul{
+    list-style-type: none; /* Remove bullets */
+    font-family:var(--main-font-family);
+}
+.sidebar-content li{
+    color: var(--nav-bar-text-color);
+}
+
+.sidebar-content a{
+    text-decoration: none;
+    color: var(--nav-bar-text-color);
+}
+
+.d1{
+    text-align: center;
+}
+
+.content{
+    margin-top:50px;
+    padding-top: 20px;
+}

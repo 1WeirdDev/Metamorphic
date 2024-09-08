@@ -17,12 +17,14 @@ namespace Metamorphic{
 
         }
 
-        void CreateMesh(){
-
-        }
+        void CreateMesh();
     private:
         VERTEX_TYPE* vertices = nullptr;
         INDEX_TYPE* indices = nullptr;
         bool m_Created = false;
     };
 }
+
+#ifdef METAMORPHIC_USE_OPENGL
+#include "Platforms/Rendering/BasicMesh.cpp"
+#endif

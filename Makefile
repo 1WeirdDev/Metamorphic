@@ -224,6 +224,8 @@ build_sandbox:
 	$(call f_build_sandbox)
 install_server_modules:
 	npm install express
+run_server:
+	node src/Website/Server.js
 run:
 ifneq ($(Configuration), Dist)
 	gdb -ex run -ex quit -ex "set args $(PROGRAM_ARGS)" $(FILE_NAME).exe
