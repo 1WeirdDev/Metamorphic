@@ -2,6 +2,7 @@
     --main-bg-color: #1c1c1c;
     --nav-color: #1d1d1d;
     --side-bar-color:#1e1e1e;
+    --side-bar-width:300px;
 
     --main-font-family: DejaVu Sans Mono, monospace;
     --nav-bar-text-color: #908787;
@@ -27,6 +28,11 @@ h3{
     color:#bdc6ca;
     font-family:var(--main-font-family);
     font-size: 25px;
+}
+h4{
+    color:#bdc6ca;
+    font-family:var(--main-font-family);
+    font-size: 20px;
 }
 p{
     color:#a9afb1;
@@ -62,7 +68,7 @@ p{
     top: 0;
     left: 0;
     height: calc(100vh - var(--nav-bar-height));
-    width: 260px;
+    width: var(--side-bar-width);
     overflow-x: hidden;
     padding-top: 20px;
     border-right: 1px solid #0c0c0c;
@@ -73,7 +79,19 @@ p{
 .sidebar-content{
     text-align: none;
     position:relative;
+    overflow: overlay;
     margin:2px;
+    height:calc(100% - var(--nav-bar-height) - 2px - 50px);
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(90, 90, 90);
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
 }
 .sidebar-content ul{
     list-style-type: none; /* Remove bullets */
@@ -88,11 +106,16 @@ p{
     color: var(--nav-bar-text-color);
 }
 
-.d1{
-    text-align: center;
+.content-side-bar{
+    margin-top:50px;
+    padding-top: 20px;
+    margin-left:var( --side-bar-width);
 }
-
 .content{
     margin-top:50px;
     padding-top: 20px;
+}
+
+.d1{
+    text-align: center;
 }
