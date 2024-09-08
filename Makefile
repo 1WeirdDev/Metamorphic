@@ -223,7 +223,7 @@ build_engine:
 build_sandbox:
 	$(call f_build_sandbox)
 install_server_modules:
-	npm install express
+	npm install express fs
 run_server:
 	node src/Website/Server.js
 run:
